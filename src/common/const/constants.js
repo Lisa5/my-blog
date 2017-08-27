@@ -1,3 +1,6 @@
-export const Constants = {
-  SUCCESS_CODE: '000'
-}
+
+/**
+ * 服务成功响应代码
+ * @type {string}
+ */
+export const SUCCESS_CODE = '000'

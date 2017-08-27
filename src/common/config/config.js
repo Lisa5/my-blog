@@ -1,3 +1,5 @@
-export const serverConfig = {
-  server: 'http://123.206.217.94:8888'
-}
+/**
+ * server
+ */
+export const server = 'http://123.206.217.94:8899'
+

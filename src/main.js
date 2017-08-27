@@ -2,20 +2,23 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
-import routers from './router-config'
+import routes from './router-config'
 import store from './store'
 
+Vue.use(VueResource)
 Vue.use(VueRouter)
 
 export const router = new VueRouter({
   mode: 'history',
-  routes: routers
+  routes: routes
 })
 
 router.beforeEach((to, from, next) => {
   console.log('$')
-  console.log(from)
+  console.log(to)
+  console.log(router)
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
@@ -27,7 +30,7 @@ router.beforeEach((to, from, next) => {
     // } else {
     //   next()
     // }
-    next('/logon')
+    next()
   } else {
     next() // 确保一定要调用 next()
   }

@@ -1,5 +1,5 @@
 
-import {routers as lRouter} from './blog/router'
+import {routes as lRouter} from './blog/router'
 
 let subRoutes = []
 const registerRoute = (config) => {
@@ -13,17 +13,31 @@ const registerRoute = (config) => {
       obj.path = `${path}/${obj.path}`
     }
     subRoutes.push(obj)
+    console.log(subRoutes)
   }
-  console.log(subRoutes)
 }
 registerRoute(lRouter)
 
-let routers = [
+let routes = [
+  {
+    name: 'logon',
+    path: '/logon',
+    component: (resolve) => require(['./logon/views/logon'], resolve)
+  },
+  {
+    name: 'logon',
+    path: '/blog/blog-list',
+    component: (resolve) => require(['./blog/views/blog-list'], resolve)
+  },
   {
     name: '',
     path: '/',
-    component: (resolve) => require(['./logon/views/logon'], resolve),
-    children: subRoutes
+    component: (resolve) => require(['./blog/views/index'], resolve),
+    children: routes
+  },
+  {
+    name: '*',
+    path: '/logon'
   }
 ]
-export default routers
+export default routes

@@ -1,7 +1,5 @@
 <template>
   <div>
-    <img src="../../assets/logo.png">
-    <!--<router-view></router-view>-->
     <label>Lisa's blog </label>
     <button>logon</button>
   </div>

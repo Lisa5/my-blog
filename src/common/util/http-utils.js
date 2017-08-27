@@ -2,8 +2,8 @@
  * create by Lias 2018/8/19
  */
 import Vue from 'vue'
-import serverConfig from 'common/config/config'
-import Constants from 'common/const/constants'
+import * as serverConfig from '../config/config'
+import * as Constants from '../const/constants'
 
 export {httpPost, httpGet}
 /**
@@ -17,7 +17,7 @@ function httpPost (system, serviceCode, param = {}) {
   let url = getUrl(system, serviceCode)
 //   param['header'] = getHeader()
   return new Promise((resolve, reject) => {
-    Vue.http.post(url, JSON.stringify(param)).then((response) => {
+    Vue.http.post(url, param).then((response) => {
       doResponse(resolve, reject, response)
     }, (response) => {
       console.log(response)
@@ -64,6 +64,7 @@ function getUrl (system, serviceCode) {
  */
 function doResponse (resolve, reject, response) {
   let data = response.data
+  console.log(response.data)
   if (data == null || data === '') {
     reject('服务响应异常')
     return
@@ -71,9 +72,9 @@ function doResponse (resolve, reject, response) {
   if (typeof data === 'string') {
     data = JSON.parse(data)
   }
-  if (data.header.responseCode === Constants.SUCCESS_CODE) {
+  if (data.header.code === Constants.SUCCESS_CODE) {
     resolve(data)
   } else {
-    reject(data.header.responseMessage)
+    reject(data.header.msg)
   }
 }

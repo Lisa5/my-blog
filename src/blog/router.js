@@ -1,7 +1,7 @@
 /**
  * Created by Lisa on 2017/8/6.
  */
-export const routers = {
+export const routes = {
   pre: 'blog',
   path: 'blog',
   list: [
