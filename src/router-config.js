@@ -33,7 +33,7 @@ let routes = [
     name: '',
     path: '/',
     component: (resolve) => require(['./blog/views/index'], resolve),
-    children: routes
+    children: subRoutes
   },
   {
     name: '*',
