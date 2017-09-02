@@ -25,11 +25,6 @@ let routes = [
     component: (resolve) => require(['./logon/views/logon'], resolve)
   },
   {
-    name: 'logon',
-    path: '/blog/blog-list',
-    component: (resolve) => require(['./blog/views/blog-list'], resolve)
-  },
-  {
     name: '',
     path: '/',
     component: (resolve) => require(['./blog/views/index'], resolve),

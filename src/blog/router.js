@@ -9,6 +9,11 @@ export const routes = {
       name: 'blog-list',
       path: 'blog-list',
       component: (resolve) => require(['./views/blog-list'], resolve)
+    },
+    {
+      name: 'about-me',
+      path: 'about-me',
+      component: (resolve) => require(['./views/about-me'], resolve)
     }
   ]
 }
