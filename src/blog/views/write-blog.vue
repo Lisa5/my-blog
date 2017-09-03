@@ -1,15 +1,22 @@
 <template>
   <div class="write-blog">
-    <div>
+    <div class="write-title">
         <label>博客标题</label>
-        <el-input placeholder="title" v-model="title"></el-input>
+        <el-row type="flex" class="row-bg">
+            <el-col :span="12" ><el-input placeholder="title" v-model="title"></el-input></el-col>
+            <el-col :span="11" :offset="1">
+                <el-button @click="setLabels('life')">生活兴趣</el-button>
+                <el-button @click="setLabels('learn')">开发教程</el-button>
+                <el-button @click="setLabels('production')">我的作品</el-button>
+            </el-col>
+        </el-row>    
     </div>
     <label>博客内容</label>
     <div id="editor">
         <textarea :value="input" @input="update"></textarea>
         <div v-html="compiledMarkdown"></div>
     </div>
-    <div class="publish">
+    <div class="write-footer">
         <el-button type="" @click="pusblish">发布</el-button>
     </div>
   </div>
@@ -24,7 +31,8 @@ export default {
   data () {
     return {
       input: '# hello',
-      title: ' 第一篇博客'
+      title: ' 第一篇博客',
+      labels: []
     }
   },
   computed: {
@@ -39,7 +47,7 @@ export default {
     pusblish () {
       let params = {
         'title': this.title,
-        'labels': ['life'],
+        'labels': this.labels,
         'contnet': this.input
       }
       httpPost('', '/api/blog/blog', params).then((data) => {
@@ -55,6 +63,10 @@ export default {
           message: error
         })
       })
+    },
+    setLabels (label) {
+      this.labels.push(label)
+      console.log(this.labels)
     }
   }
 }
@@ -95,5 +107,11 @@ textarea {
 
 code {
   color: #f66;
+}
+.write-title{
+  padding-bottom: 15px;
+}
+.write-footer {
+  margin-top:15px;
 }
 </style>

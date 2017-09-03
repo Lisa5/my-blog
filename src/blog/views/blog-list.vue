@@ -52,7 +52,7 @@
 
 <script>
 import {httpPost, httpGet} from '../../common/util/http-utils'
-// import * as Utils from '../../common/util/utils'
+import Utils from '../../common/util/utils'
 import marked from 'marked'
 export default {
   name: 'hello',
@@ -72,7 +72,7 @@ export default {
     getBlogList () {
       let params = {
         title: '',
-        month: '7',
+        month: Utils.getMonth(),
         year: '2017'
       }
       httpPost('', '/api/blog/blogList', params).then((data) => {

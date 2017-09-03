@@ -10,12 +10,14 @@
         </div>
       </div>
     </div> 
+    <footer-bar></footer-bar>
   </div>
 </template>
 
 <script>
 import {httpPost} from '../../common/util/http-utils'
 import headBar from '../../common/components/head-bar.vue'
+import footerBar from '../../common/components/footer-bar.vue'
 export default {
   name: 'hello',
   data () {
@@ -46,7 +48,8 @@ export default {
     }
   },
   components: {
-    headBar
+    headBar,
+    footerBar
   }
 }
 </script>
@@ -57,6 +60,7 @@ export default {
     -moz-box-sizing: border-box; /* Firefox */
     -webkit-box-sizing: border-box; /* Safari */
     margin-top: 24px !important;
+    margin-bottom: 150px;
   }
   .blog-left {
     padding: 10px;
