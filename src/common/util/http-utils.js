@@ -36,6 +36,7 @@ function httpPost (system, serviceCode, param = {}) {
 function httpGet (system, serviceCode, param = {}) {
   let url = getUrl(system, serviceCode)
 //   param['header'] = getHeader()
+// JSON.stringify()
   return new Promise((resolve, reject) => {
     Vue.http.get(url, JSON.stringify(param)).then((response) => {
       doResponse(resolve, reject, response)

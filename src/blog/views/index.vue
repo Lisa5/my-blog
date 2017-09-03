@@ -4,47 +4,9 @@
     <div class="main">
       <div class="blog-container">
         <div class="blog-container-lg">
-          <el-row type="flex" class="row-bg">
-            <el-col :span="6">
-              <div class="blog-left">
-                <div class="blog-info">
-                  <!-- <img src="../../assets/images/head.jpeg"/>
-                  <label>Lisa</label> -->
-                  <div class="blog-info-title"><label>近期文章</label></div>
-                    <div class="blog-info-content" v-for="(item, index) in blogList">
-                      <router-link to="/blog/blog-list">
-                      <div class="content" >
-                        {{item.title}}
-                      </div>
-                    </router-link>
-                  </div>
-                </div>
-                <div class="blog-info">
-                  <div class="blog-info-title"><label>分类目录</label></div>
-                  <div class="blog-info-content" v-for="(item, index) in blogList">
-                    <div class="content" >
-                      {{item.title}}
-                    </div>
-                  </div>
-                </div>
-                <div class="blog-info">
-                  <label>文章归档</label>
-                  <div class="blog-info-content" v-for="(item, index) in blogList">
-                    <div class="content" >
-                      {{item.title}}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </el-col>
-            <el-col :span="18">
-              <div class="blog-content">
-              <transition name="el-fade-in-linear" mode="out-in">
-                <router-view></router-view>
-              </transition>
-              </div> 
-            </el-col>
-          </el-row>
+          <transition name="el-fade-in-linear" mode="out-in">
+            <router-view></router-view>
+          </transition>
         </div>
       </div>
     </div> 
@@ -63,7 +25,7 @@ export default {
     }
   },
   created () {
-    this.getBlogList()
+    // this.getBlogList()
   },
   methods: {
     getBlogList () {
@@ -75,15 +37,12 @@ export default {
       httpPost('', '/api/blog/blogList', params).then((data) => {
         this.blogTitleList = data.blogList
         this.blogList = data.blogs.docs
-        // if (this.blogList.length > 0) {
-        //   for (let i = 0; i < this.blogList.length; i++) {
-        //     this.blogList[i].content = Utils.subContent(this.blogList[i].content)
-        //     console.log(this.blogList[i].content)
-        //   }
-        // }
       }, (error) => {
         console.log(error)
       })
+    },
+    getBlog (id) {
+      this.$router.push({path: '/blog/blog-list', query: {'_id': id}})
     }
   },
   components: {
@@ -120,6 +79,9 @@ export default {
     color:#aaaaaa;
     padding: 8px 0px;
     border-bottom: 1px solid #efefef;
+  }
+  .blog-info-content a{
+    cursor: pointer;
   }
   .blog-content {
     margin-left: 20px;

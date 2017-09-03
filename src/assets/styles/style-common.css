@@ -12,3 +12,9 @@ a {
 .is-right {
     float: right !important;
 }
+.text-4 {
+    font-size: 15px;
+}
+.text-5 {
+    font-size: 13px;
+}

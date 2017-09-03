@@ -18,14 +18,11 @@ Vue.use(VueResource)
 Vue.use(VueRouter)
 
 export const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   routes: routes
 })
 
 router.beforeEach((to, from, next) => {
-  console.log('$')
-  console.log(to)
-  console.log(router)
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.

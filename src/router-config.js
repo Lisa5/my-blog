@@ -13,7 +13,6 @@ const registerRoute = (config) => {
       obj.path = `${path}/${obj.path}`
     }
     subRoutes.push(obj)
-    console.log(subRoutes)
   }
 }
 registerRoute(lRouter)
