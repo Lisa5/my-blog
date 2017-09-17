@@ -93,6 +93,7 @@ textarea, #editor div {
   vertical-align: top;
   box-sizing: border-box;
   padding: 0 20px;
+  overflow: scroll;
 }
 
 textarea {

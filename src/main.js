@@ -23,6 +23,7 @@ export const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  console.log(to)
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
@@ -34,7 +35,16 @@ router.beforeEach((to, from, next) => {
     // } else {
     //   next()
     // }
-    next()
+    /**
+     * store.state.isLogon 与 store.getters.isLogon 的等价
+     */
+    // let isLogon = store.state.isLogon
+    let isLogon = store.getters.isLogon
+    if (isLogon) {
+      next()
+    } else {
+      next('/logon')
+    }
   } else {
     next() // 确保一定要调用 next()
   }

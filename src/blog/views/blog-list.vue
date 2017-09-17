@@ -94,6 +94,7 @@ export default {
       }
       httpGet('', '/api/blog/getBlog', {params}).then((data) => {
         this.blog = data.data
+        console.log(this.blog)
       }, (error) => {
         this.$message.error(error)
       })

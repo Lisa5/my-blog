@@ -23,7 +23,8 @@ export const routes = {
     {
       name: 'write-blog',
       path: 'write-blog',
-      component: (resolve) => require(['./views/write-blog'], resolve)
+      component: (resolve) => require(['./views/write-blog'], resolve),
+      meta: { requiresAuth: true }
     }
   ]
 }
