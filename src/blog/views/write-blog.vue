@@ -3,7 +3,7 @@
     <div class="write-title">
         <label>博客标题</label>
         <el-row type="flex" class="row-bg">
-            <el-col :span="12" ><el-input placeholder="title" v-model="title"></el-input></el-col>
+            <el-col :span="12" ><el-input placeholder="博客标题" v-model="title"></el-input></el-col>
             <el-col :span="11" :offset="1">
                 <el-button @click="setLabels('life')">生活兴趣</el-button>
                 <el-button @click="setLabels('learn')">开发教程</el-button>
@@ -13,7 +13,7 @@
     </div>
     <label>博客内容</label>
     <div id="editor">
-        <textarea :value="input" @input="update"></textarea>
+        <textarea :value="input" @input="update" placeholder="博客内容"></textarea>
         <div v-html="compiledMarkdown"></div>
     </div>
     <div class="write-footer">
@@ -30,8 +30,8 @@ export default {
   name: 'hello',
   data () {
     return {
-      input: '# hello',
-      title: ' 第一篇博客',
+      input: '',
+      title: '',
       labels: []
     }
   },
@@ -48,7 +48,7 @@ export default {
       let params = {
         'title': this.title,
         'labels': this.labels,
-        'contnet': this.input
+        'content': this.input
       }
       httpPost('', '/api/blog/blog', params).then((data) => {
         console.log(data)
@@ -75,8 +75,9 @@ export default {
 <style>
 .write-blog {
   height:400px;
+  padding-bottom: 20px;
 }
-html, body, #editor {
+#editor {
   margin: 0;
   height: 100%;
   font-family: 'Helvetica Neue', Arial, sans-serif;

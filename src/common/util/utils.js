@@ -5,6 +5,6 @@ export default {
   },
   getMonth () {
     let today = new Date()
-    return today.getMonth()
+    return today.getMonth() + 1
   }
 }

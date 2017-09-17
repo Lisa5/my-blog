@@ -42,6 +42,7 @@ export default {
 
 <style>
   .about-content {
+    min-height: 500px;
     margin: 50px 0px 30px 20px;
   }
   .about-content .text-4{
