@@ -61,6 +61,7 @@ export default {
     -webkit-box-sizing: border-box; /* Safari */
     margin-top: 24px !important;
     margin-bottom: 150px;
+    min-height: 600px;
   }
   .blog-left {
     padding: 10px;

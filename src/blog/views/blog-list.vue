@@ -1,5 +1,5 @@
 <template>
-  <div class="blog">
+  <div class="blog-container">
     <el-row type="flex" class="row-bg">
       <el-col :span="6">
         <div class="blog-left">
@@ -111,6 +111,9 @@ export default {
 </script>
 
 <style scoped>
+  .blog-container {
+    min-height: 600px;
+  }
   .blog-component-up {
     background-color: #58b7ff;
     position: fixed;
