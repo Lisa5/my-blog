@@ -13,10 +13,10 @@
             </el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input v-model="formUser.password" placeholder="密码"></el-input>
+            <el-input v-model="formUser.password" placeholder="密码" type="password"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="logon('form')" class="logon-btn">登录</el-button>
+            <el-button type="primary" @click="logon()" class="logon-btn" >登录</el-button>
           </el-form-item>
         </el-form> 
       </el-col>

@@ -63,35 +63,4 @@ export default {
     margin-bottom: 150px;
     min-height: 600px;
   }
-  .blog-left {
-    padding: 10px;
-    border: 1px solid #efefef;
-  }
-  .blog-left a {
-    color: #aaaaaa;
-  }
-  .blog-left a:hover {
-    color: #666666;
-  }
-  .blog-info {
-    text-align: left;
-    padding:0px 10px 30px 0px;
-  }
-  .blog-info img{
-    width:100%;
-  }
-  .blog-info-content {
-    color:#aaaaaa;
-    padding: 8px 0px;
-    border-bottom: 1px solid #efefef;
-  }
-  .blog-info-content a{
-    cursor: pointer;
-  }
-  .blog-content {
-    margin-left: 20px;
-    padding:10px;
-    border: 1px solid #efefef;
-    min-height: 600px;
-  }
 </style>

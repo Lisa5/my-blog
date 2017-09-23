@@ -1,25 +1,46 @@
 <template>
-  <div class="write-blog">
-    <div class="write-title">
-        <label>博客标题</label>
-        <el-row type="flex" class="row-bg">
-            <el-col :span="12" ><el-input placeholder="博客标题" v-model="title"></el-input></el-col>
-            <el-col :span="11" :offset="1">
-                <el-button @click="setLabels('life')">生活兴趣</el-button>
-                <el-button @click="setLabels('learn')">开发教程</el-button>
-                <el-button @click="setLabels('production')">我的作品</el-button>
-            </el-col>
-        </el-row>    
+<div>
+  <el-form :model="formBlog" :rules="rules" ref="formBlog"> 
+    <div class="write-blog">
+        <div class="write-title">
+          <label>博客标题</label>
+          <el-row type="flex" class="row-bg">   
+              <el-col :span="12" >
+                <el-form-item prop="title">
+                <el-input placeholder="博客标题" v-model="formBlog.title"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="11" :offset="1">
+                <el-form-item label="" prop="labels">
+                  <el-radio-group v-model="formBlog.labels">
+                    <el-radio :label="1">生活兴趣</el-radio>
+                    <el-radio :label="2">开发教程</el-radio>
+                    <el-radio :label="3">我的作品</el-radio>
+                  </el-radio-group>
+                </el-form-item>
+                  <!-- <el-button @click="setLabels('life')">生活兴趣</el-button>
+                  <el-button @click="setLabels('learn')">开发教程</el-button>
+                  <el-button @click="setLabels('production')">我的作品</el-button> -->
+              </el-col>     
+          </el-row>    
+        </div>
+        <el-form-item prop="content">
+          <div class="write-content">
+          <label>博客内容</label>
+          <div id="editor">  
+              <textarea :value="formBlog.content" @input="update" placeholder="博客内容"></textarea>
+              <div v-html="compiledMarkdown"></div> 
+          </div>
+          </div>
+        </el-form-item>
+        <div class="write-footer">
+          <el-form-item>
+            <el-button type="" @click="submit()">发布</el-button>
+          </el-form-item>
+        </div>
     </div>
-    <label>博客内容</label>
-    <div id="editor">
-        <textarea :value="input" @input="update" placeholder="博客内容"></textarea>
-        <div v-html="compiledMarkdown"></div>
-    </div>
-    <div class="write-footer">
-        <el-button type="" @click="pusblish">发布</el-button>
-    </div>
-  </div>
+  </el-form>
+</div>
 </template>
 
 <script>
@@ -30,25 +51,52 @@ export default {
   name: 'hello',
   data () {
     return {
+      formBlog: {
+        title: '',
+        content: '',
+        labels: 3
+      },
       input: '',
       title: '',
-      labels: []
+      labels: [],
+      rules: {
+        title: [
+          {required: true, message: '请输入博客名称', trigger: 'blur'}
+        ],
+        content: [
+          {required: true, message: '请输入博客内容', trigger: 'blur'}
+        ]
+      }
     }
   },
   computed: {
     compiledMarkdown: function () {
-      return marked(this.input, { sanitize: true })
+      return marked(this.formBlog.content, { sanitize: true })
     }
   },
   methods: {
     update: _.debounce(function (e) {
-      this.input = e.target.value
+      this.formBlog.content = e.target.value
     }, 300),
+    submit () {
+      this.$refs.formBlog.validate((valid) => {
+        if (valid) {
+          if (this.formBlog.content === '' || this.formBlog.content === null) {
+            return false
+          } else {
+            this.pusblish()
+          }
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
     pusblish () {
       let params = {
-        'title': this.title,
-        'labels': this.labels,
-        'content': this.input
+        'title': this.formBlog.title,
+        'labels': this.labels(this.formBlog.labels),
+        'content': this.formBlog.content
       }
       httpPost('', '/api/blog/blog', params).then((data) => {
         console.log(data)
@@ -67,6 +115,18 @@ export default {
     setLabels (label) {
       this.labels.push(label)
       console.log(this.labels)
+    },
+    labels (label) {
+      switch (label) {
+        case 1:
+          return 'life'
+        case 2:
+          return 'learn'
+        case 3:
+          return 'production'
+        default:
+          return 'life'
+      }
     }
   }
 }
@@ -74,6 +134,10 @@ export default {
 
 <style>
 .write-blog {
+  height:400px;
+  padding-bottom: 20px;
+}
+.write-blog .write-content{
   height:400px;
   padding-bottom: 20px;
 }

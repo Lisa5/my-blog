@@ -7,7 +7,7 @@
             <!-- <img src="../../assets/images/head.jpeg"/>
             <label>Lisa</label> -->
             <div class="blog-info-title"><label>近期文章</label></div>
-              <div class="blog-info-content" v-for="(item, index) in blogList" :key="item._id">
+              <div class="blog-info-content" v-for="(item, index) in blogs.docs" :key="item._id">
                 <a class="content" @click="getBlog(item._id)" v-show="index < 5">
                   {{item.title}}
                 </a>
@@ -15,17 +15,17 @@
           </div>
           <div class="blog-info">
             <div class="blog-info-title"><label>分类目录</label></div>
-            <div class="blog-info-content" v-for="(item, index) in blogList" :key="item._id">
+            <div class="blog-info-content" v-for="(item, index) in blogs.docs" :key="item._id">
               <div class="content" >
                 {{item.title}}
               </div>
             </div>
           </div>
           <div class="blog-info">
-            <label>文章归档</label>
+            <label>文章归档</label><span class="count">共{{blogCount}}篇</span>
             <div class="blog-info-content" v-for="(item, index) in blogList" :key="item._id">
               <div class="content" >
-                {{item.title}}
+                {{item.time}}({{item.sum}}篇)
               </div>
             </div>
           </div>
@@ -38,12 +38,12 @@
           </div>
           <div class="content" v-html="compiledMarkdown"></div>
         </div>
-        <div class="blog-component-up">
+        <div class="blog-component-up" @click="top()">
           <i class="el-icon-caret-top"></i>
         </div> 
       </el-col>
     </el-row>
-    <!-- <div class="blog-cell" v-for="(item, index) in blogList">
+    <!-- <div class="blog-cell" v-for="(item, index) in blogs.docs">
       <div class="title">
         <label>{{item.title}}</label>
       </div>
@@ -62,8 +62,9 @@ export default {
   name: 'hello',
   data () {
     return {
+      blogCount: '',
+      blogs: [],
       blogList: [],
-      blogTitleList: [],
       blog: {},
       id: ''
     }
@@ -80,10 +81,14 @@ export default {
         year: '2017'
       }
       httpPost('', '/api/blog/blogList', params).then((data) => {
-        this.blogTitleList = data.blogList
-        this.blogList = data.blogs.docs
-        this.id = this.blogList[0]._id
-        this.getBlog(this.id)
+        console.log(data)
+        this.blogCount = data.blog_count
+        this.blogs = data.blogs
+        this.blogList = data.blogList
+        if (this.blogs.docs.length > 0) {
+          this.id = this.blogs.docs[1]._id
+          this.getBlog(this.id)
+        }
       }, (error) => {
         this.$message.error(error)
       })
@@ -94,10 +99,20 @@ export default {
       }
       httpGet('', '/api/blog/getBlog', {params}).then((data) => {
         this.blog = data.data
-        console.log(this.blog)
+        // console.log(this.blog)
       }, (error) => {
         this.$message.error(error)
       })
+    },
+    /**
+     * 回到顶部
+     */
+    top () {
+      // 块注释,用于临时禁止规则
+      /* eslint-disable */
+      document.body.scrollTop = 0
+      document.documentElement.scrollTop = 0
+      /* eslint-enable */
     }
   },
   computed: {
@@ -135,5 +150,39 @@ export default {
     line-height: 50px;
     text-align: center;
     font-size: 22px;
+  }
+  .blog-left {
+    padding: 10px;
+    border: 1px solid #efefef;
+  }
+  .blog-left a {
+    color: #aaaaaa;
+  }
+  .blog-left a:hover {
+    color: #666666;
+  }
+  .blog-info {
+    text-align: left;
+    padding:0px 10px 30px 0px;
+  }
+  .blog-info .count{
+    float: right;
+  }
+  .blog-info img{
+    width:100%;
+  }
+  .blog-info-content {
+    color:#aaaaaa;
+    padding: 8px 0px;
+    border-bottom: 1px solid #efefef;
+  }
+  .blog-info-content a{
+    cursor: pointer;
+  }
+  .blog-content {
+    margin-left: 20px;
+    padding:10px;
+    border: 1px solid #efefef;
+    min-height: 600px;
   }
 </style>
