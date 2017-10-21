@@ -23,7 +23,7 @@
           </div>
           <div class="blog-info">
             <label>文章归档</label><span class="count">共{{blogCount}}篇</span>
-            <div class="blog-info-content" v-for="(item, index) in blogList" :key="item._id">
+            <div class="blog-info-content" v-for="(item, index) in blogList">
               <div class="content" >
                 {{item.time}}({{item.sum}}篇)
               </div>
@@ -65,7 +65,9 @@ export default {
       blogCount: '',
       blogs: [],
       blogList: [],
-      blog: {},
+      blog: {
+        content: '还没有相关博客数据～'
+      },
       id: ''
     }
   },
