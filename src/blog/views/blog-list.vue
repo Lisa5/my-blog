@@ -9,7 +9,7 @@
             <div class="blog-info-title"><label>近期文章</label></div>
               <div class="blog-info-content" v-for="(item, index) in blogs.docs" :key="item._id">
                 <a class="content" @click="getBlog(item._id)" v-show="index < 5">
-                  {{item.title}}
+                  blog-{{item.title}}
                 </a>
             </div>
           </div>
@@ -17,7 +17,7 @@
             <div class="blog-info-title"><label>分类目录</label></div>
             <div class="blog-info-content" v-for="(item, index) in blogs.docs" :key="item._id">
               <div class="content" >
-                {{item.title}}
+                分类-{{item.title}}
               </div>
             </div>
           </div>
@@ -25,7 +25,9 @@
             <label>文章归档</label><span class="count">共{{blogCount}}篇</span>
             <div class="blog-info-content" v-for="(item, index) in blogList">
               <div class="content" >
-                {{item.time}}({{item.sum}}篇)
+                <a class="content" @click="getBlogListByTime(item.time)" v-show="index < 5">
+                  归档-{{item.time}}({{item.sum}}篇)
+                </a>
               </div>
             </div>
           </div>
@@ -56,7 +58,7 @@
 
 <script>
 import {httpPost, httpGet} from '../../common/util/http-utils'
-import Utils from '../../common/util/utils'
+// import Utils from '../../common/util/utils'
 import marked from 'marked'
 export default {
   name: 'hello',
@@ -66,7 +68,7 @@ export default {
       blogs: [],
       blogList: [],
       blog: {
-        content: '还没有相关博客数据～'
+        content: '正在加载，可能是还没有博客数据哦～'
       },
       id: ''
     }
@@ -79,11 +81,29 @@ export default {
     getBlogList () {
       let params = {
         title: '',
-        month: Utils.getMonth(),
+        // month: Utils.getMonth(),
+        month: 7,
         year: '2017'
       }
+      this.getBlogListPost(params)
+    },
+    getBlogListByTime (time) {
+      /* eslint-disable */
+      let y = time.indexOf('年')
+      let m = time.indexOf('月')
+      let year = time.substring(0, y)
+      let month = time.substring(y + 1, m)
+      let params = {
+        title: '',
+        month: month,
+        year: year
+      }
+      this.getBlogListPost(params)
+    },
+    getBlogListPost (params) {
       httpPost('', '/api/blog/blogList', params).then((data) => {
-        console.log(data)
+        console.log('blog')
+        console.log(data.blogs)
         this.blogCount = data.blog_count
         this.blogs = data.blogs
         this.blogList = data.blogList
@@ -105,6 +125,9 @@ export default {
       }, (error) => {
         this.$message.error(error)
       })
+    },
+    delBlog (id) {
+      console.log('delete')
     },
     /**
      * 回到顶部

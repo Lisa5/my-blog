@@ -4,6 +4,7 @@
 import Vue from 'vue'
 import * as serverConfig from '../config/config'
 import * as Constants from '../const/constants'
+import { Loading } from 'element-ui'
 
 export {httpPost, httpGet}
 /**
@@ -16,10 +17,19 @@ export {httpPost, httpGet}
 function httpPost (system, serviceCode, param = {}) {
   let url = getUrl(system, serviceCode)
 //   param['header'] = getHeader()
+  let options = {
+    fullscreen: true,
+    text: '拼命加载中',
+    spinner: 'el-icon-loading',
+    background: 'rgba(0, 0, 0, 0.8)'
+  }
+  let loadingInstance = Loading.service(options)
   return new Promise((resolve, reject) => {
     Vue.http.post(url, param).then((response) => {
       doResponse(resolve, reject, response)
+      loadingInstance.close()
     }, (response) => {
+      loadingInstance.close()
       console.log(response)
       reject('网络错误，请检查您的网络配置！')
     })
