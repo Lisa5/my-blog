@@ -35,7 +35,8 @@
         </el-form-item>
         <div class="write-footer">
           <el-form-item>
-            <el-button type="" @click="submit()">发布</el-button>
+            <el-button type="" @click="submit()">发布</el-button>       
+            <el-button type="" @click="back()">返回</el-button>
           </el-form-item>
         </div>
     </div>
@@ -95,7 +96,7 @@ export default {
     pusblish () {
       let params = {
         'title': this.formBlog.title,
-        'labels': this.labels(this.formBlog.labels),
+        'labels': this.transLabels(this.formBlog.labels),
         'content': this.formBlog.content
       }
       httpPost('', '/api/blog/blog', params).then((data) => {
@@ -116,7 +117,7 @@ export default {
       this.labels.push(label)
       console.log(this.labels)
     },
-    labels (label) {
+    transLabels (label) {
       switch (label) {
         case 1:
           return 'life'
@@ -127,6 +128,9 @@ export default {
         default:
           return 'life'
       }
+    },
+    back () {
+      this.$router.push('/blog/blog-list')
     }
   }
 }

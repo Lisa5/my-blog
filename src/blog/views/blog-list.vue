@@ -31,6 +31,10 @@
               </div>
             </div>
           </div>
+          <div class="blog-info">  
+            <label>好书推荐</label>
+            <div>《汤姆叔叔的小屋》</div>
+          </div>
         </div>
       </el-col>
       <el-col :span="18">

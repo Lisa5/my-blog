@@ -1,0 +1,35 @@
+/*
+* Create by Lisa at 2017.11.04
+* Rewrite the styles of markdown editor
+*/
+/* 段落 */
+pre {
+    background-color: #efefef;
+    line-height: 20px;
+    padding:20px;
+}
+/* 标注 */
+blockquote{
+    color: #5c615c;
+    border-left: 2px solid #5c615c;
+    padding-left: 10px;
+    line-height: 20px;
+}
+/* 代码 */
+code {
+    color: #226f4c;
+}
+
+#editor img 
+{
+    width: 70%;
+    text-align: center;
+    margin-left: 15%;
+}
+
+.blog-content img 
+{
+    width: 70%;
+    text-align: center;
+    margin-left: 15%;
+}

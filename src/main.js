@@ -3,6 +3,7 @@
 
 import 'element-ui/lib/theme-default/index.css'
 import 'assets/styles/style-common.css'
+import 'assets/styles/markdown.css'
 
 import Vue from 'vue'
 import App from './App'

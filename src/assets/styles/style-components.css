@@ -1,3 +1,6 @@
 .el-notification{
   left:400px;
 }
+.el-form-item__content{
+  line-height: 25px;
+}
